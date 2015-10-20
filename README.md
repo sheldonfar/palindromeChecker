@@ -4,9 +4,10 @@ simple Javascript class for finding palindromes in an input string
 
 #Usage
 ```
-var myPalindrome = new Palindrome(palindrome.val());
-var foundPalindromes = myPalindrome.check();
-var longestPal = myPalindrome.getLongest();
+var myString = "yabxyzyxba1";
+var myPalindrome = new Palindrome(myString);
+var foundPalindromes = myPalindrome.check(); // returns an array of found palindromes
+var longestPal = myPalindrome.getLongest(); // returns the longest palindrome among found
 ```
 
 #Demo
