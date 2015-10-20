@@ -11,4 +11,5 @@ var longestPal = myPalindrome.getLongest();
 
 #Demo
 You can also view a [Live Demo](http://sheldonfar.com/palindromes)
+#Tests
 You can view [Tests](http://sheldonfar.com/palindromes/tests.html)
