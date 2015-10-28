@@ -18,6 +18,11 @@ var str = {
         fullStr: '',
         pals: [],
         longest: ''
+    },
+    str5: {
+        fullStr: '1222212',
+        pals: ['122221', '2222', '212', '222', '22'],
+        longest: '122221'
     }
 };
 describe("check()", function () {

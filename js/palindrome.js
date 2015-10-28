@@ -3,28 +3,50 @@
         this.str = str;
         this.foundPalindrome = [];
     };
-    Palindrome.prototype.check = function () {
-        if (this.str.length < 0) return [];
-        this.str = this.str.replace(/\s/g, '');
-
-        var strLen = this.str.length;
-        for (var i = 0; i < Math.ceil(strLen / 2); i++) {
-            if (isPalindrome(this.str) && this.str.length > 1) this.foundPalindrome.push(this.str);
-
-            this.str = this.str.substring(1, this.str.length - 1);
+    Palindrome.prototype.check = function (_str) {
+        var strToCheck = this.str;
+        if (_str !== undefined) {
+            strToCheck = _str;
         }
+        if (strToCheck.length < 0) return [];
+
+        strToCheck = strToCheck.replace(/\s/g, '');
+        var strLen = strToCheck.length;
+        var strWithoutBegin, strWithoutEnd;
+        for (var i = 0; i < Math.ceil(strLen / 2); i++) {
+            strWithoutBegin = strToCheck.substring(1);
+            strWithoutEnd = strToCheck.substring(0, strToCheck.length - 1);
+
+
+            if (isPalindrome(strToCheck) && strToCheck.length > 1 && !this.checkPalindromeAlreadyFound(strToCheck))
+                this.foundPalindrome.push(strToCheck);
+
+            this.check(strWithoutBegin);
+            this.check(strWithoutEnd);
+
+            strToCheck = strToCheck.substring(1, strToCheck.length - 1);
+        }
+
+        this.sortPalindromeArray();
         return this.foundPalindrome;
     };
 
-    function isPalindrome(str) {
-        var len = str.length;
-        for (var i = 0; i < Math.ceil(len / 2); i++) {
-            if (str.charAt(i) != str.charAt(len - i - 1)) {
-                return false;
+    Palindrome.prototype.checkPalindromeAlreadyFound = function (str) {
+        if (typeof this.foundPalindrome !== 'undefined' && this.foundPalindrome.length > 0) {
+            for (var i = 0, len = this.foundPalindrome.length; i < len; i++) {
+                if (str === this.foundPalindrome[i]) {
+                    return true;
+                }
             }
         }
-        return true;
-    }
+        return false;
+    };
+
+    Palindrome.prototype.sortPalindromeArray = function () {
+        this.foundPalindrome.sort(function (a, b) {
+            return b.length - a.length;
+        });
+    };
 
     Palindrome.prototype.getLongest = function () {
         var maxLength = 0;
@@ -36,5 +58,15 @@
             }
         }
         return longestPal;
+    };
+
+    function isPalindrome(str) {
+        var len = str.length;
+        for (var i = 0; i < Math.ceil(len / 2); i++) {
+            if (str.charAt(i) != str.charAt(len - i - 1)) {
+                return false;
+            }
+        }
+        return true;
     }
 }());
